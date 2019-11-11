@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 60,
     textAlign: 'center',
-    color: '#fff'
+    color: '#fff',
   },
   headerSubtitle: {
     fontSize: 30,
     textAlign: 'center',
-    color: '#fff'
-  }
-});
+    color: '#fff',
+  },
+})
 
-export default styles;
+export default styles

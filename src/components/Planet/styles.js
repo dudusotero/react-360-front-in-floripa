@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    transform: [{translate: [0, -100, 0]}]
+    transform: [{ translate: [0, -100, 0] }],
   },
-});
+})
 
-export default styles;
+export default styles

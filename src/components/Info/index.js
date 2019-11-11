@@ -1,36 +1,25 @@
-import React from 'react';
+import React from 'react'
 import {
   Text,
   View,
-} from 'react-360';
-import { PLANETS as planets } from '../../constants';
-import styles from './styles';
+} from 'react-360'
+import { PLANETS as planets } from '../../constants'
+import styles from './styles'
 
-export default class Info extends React.Component {
+const Info = ({ currentPlanet }) => (
+  <View style={styles.info}>
+    <View>
+      <Text style={styles.infoTitle}>
+        { currentPlanet }
+      </Text>
+    </View>
 
-  description(description) {
-    return (
-      <View>
-        <Text style={styles.description}>
-          {description}
-        </Text>
-      </View>
-    );
-  }
+    <View>
+      <Text style={styles.description}>
+        { planets[currentPlanet].description }
+      </Text>
+    </View>
+  </View>
+)
 
-  render() {
-    const { currentPlanet } = this.props;
-
-    return (
-      <View style={styles.info}>
-        <View>
-          <Text style={styles.infoTitle}>
-            { currentPlanet }
-          </Text>
-        </View>
-
-        { this.description(planets[currentPlanet].description) }
-      </View>
-    );
-  }
-}
+export default Info

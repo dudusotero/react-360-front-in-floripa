@@ -1,37 +1,36 @@
-'use strict';
+/* eslint-disable import/no-extraneous-dependencies */
 
-var path = require('path');
-var blacklist = require('metro/src/blacklist');
+const path = require('path')
+const blacklist = require('metro/src/blacklist')
 
-var config = {
+function getRoots() {
+  const root = process.env.REACT_NATIVE_APP_ROOT
+  if (root) {
+    return [path.resolve(root)]
+  }
+  return [path.resolve(__dirname)]
+}
+
+const config = {
   getProjectRoots() {
-    return getRoots();
+    return getRoots()
   },
 
   getBlacklistRE() {
-    return blacklist([
-    ]);
+    return blacklist([])
   },
 
   getAssetExts() {
-    return ['obj', 'mtl'];
+    return ['obj', 'mtl']
   },
 
   getPlatforms() {
-    return ['vr'];
+    return ['vr']
   },
 
   getProvidesModuleNodeModules() {
-    return ['react-native', 'react-360'];
+    return ['react-native', 'react-360']
   },
-};
-
-function getRoots() {
-  var root = process.env.REACT_NATIVE_APP_ROOT;
-  if (root) {
-    return [path.resolve(root)];
-  }
-  return [path.resolve(__dirname)];
 }
 
-module.exports = config;
+module.exports = config

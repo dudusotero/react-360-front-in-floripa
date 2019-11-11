@@ -1,85 +1,92 @@
-import React from 'react';
+import React from 'react'
 import {
   asset,
   View,
   Animated,
-} from 'react-360';
-import Entity from 'Entity';
-import styles from './styles';
+} from 'react-360'
+// eslint-disable-next-line import/no-unresolved
+import Entity from 'Entity'
+import styles from './styles'
 
 export default class Planet extends React.Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       rotation: 0,
-      bounceValue: new Animated.Value(1)
-    };
+      bounceValue: new Animated.Value(1),
+    }
 
-    this.lastUpdate = Date.now();
+    this.lastUpdate = Date.now()
 
-    this.rotate = this.rotate.bind(this);
+    this.rotate = this.rotate.bind(this)
   }
 
   componentDidMount() {
-    this.rotate();
+    this.rotate()
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentPlanet !== nextProps.currentPlanet) {
+    const { currentPlanet } = this.props
+    const { bounceValue } = this.state
+
+    if (currentPlanet !== nextProps.currentPlanet) {
       const planetConfig = {
-        value: this.state.bounceValue,
+        value: bounceValue,
         initial: 0.3,
         toValue: 1,
-        friction: 5
-      };
+        friction: 5,
+      }
 
-      this.bounce(planetConfig);
+      this.bounce(planetConfig)
     }
   }
 
   componentWillUnmount() {
     if (this.frameHandle) {
-      cancelAnimationFrame(this.frameHandle);
-      this.frameHandle = null;
+      cancelAnimationFrame(this.frameHandle)
+      this.frameHandle = null
     }
   }
 
   rotate() {
-    const now = Date.now();
-    const delta = now - this.lastUpdate;
+    const { rotation } = this.state
+    const now = Date.now()
+    const delta = now - this.lastUpdate
 
-    this.time++;
+    this.time = this.time + 1
 
-    this.lastUpdate = now;
+    this.lastUpdate = now
     this.setState({
-      rotation: this.state.rotation + delta / 150
-    });
-    this.frameHandle = requestAnimationFrame(this.rotate);
+      rotation: rotation + delta / 150,
+    })
+    this.frameHandle = requestAnimationFrame(this.rotate)
   }
 
-  bounce({value, initial, toValue, friction = 1.5}) {
-    value.setValue(initial);
+  bounce({
+    value, initial, toValue, friction = 1.5,
+  }) {
+    value.setValue(initial)
 
     Animated.spring(
       value,
       {
         toValue,
         friction,
-      }
-    ).start();
+      },
+    ).start()
   }
 
   render() {
-    const {currentPlanet} = this.props;
-    const {rotation} = this.state;
-    const scale = this.state.bounceValue;
+    const { currentPlanet } = this.props
+    const { rotation, bounceValue } = this.state
+    const scale = bounceValue
 
     return (
       <View style={styles.planet}>
-        <Animated.View style={{transform: [{scale}]}}>
-          <Entity 
-            source={{obj: asset(`models/${currentPlanet}.obj`)}}
+        <Animated.View style={{ transform: [{ scale }] }}>
+          <Entity
+            source={{ obj: asset(`models/${currentPlanet}.obj`) }}
             texture={asset(`textures/${currentPlanet}.png`)}
             style={
               [
@@ -87,14 +94,14 @@ export default class Planet extends React.Component {
                   transform: [
                     { translate: [0, 0, 0] },
                     { scale: 9 },
-                    { rotateY: rotation }
-                  ]
-                }
+                    { rotateY: rotation },
+                  ],
+                },
               ]
             }
           />
         </Animated.View>
       </View>
-    );
+    )
   }
 }

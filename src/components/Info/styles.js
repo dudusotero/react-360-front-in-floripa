@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-360";
+import { StyleSheet } from 'react-360'
 
 const styles = StyleSheet.create({
   description: {
     fontSize: 24,
-    color: '#fff'
+    color: '#fff',
   },
   info: {
     width: 400,
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 30,
     color: '#fff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
-});
+})
 
-export default styles;
+export default styles
